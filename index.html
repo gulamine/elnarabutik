@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="tr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELARA Boutique</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+html,body{margin:0;padding:0;height:100%;width:100%}
+*{box-sizing:border-box}
+body{font-family:'Jost',sans-serif;color:#f5f5f5;background:#0f0f0f}
+.font-display{font-family:'Cormorant Garamond',serif}
+.hero-bg{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);position:relative;overflow:hidden}
+.hero-bg::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(0,217,255,0.15),transparent 70%);pointer-events:none}
+.hero-bg::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:40%;background:linear-gradient(to top,rgba(15,15,15,0.6),transparent);pointer-events:none}
+.product-card{transition:transform .4s cubic-bezier(.25,.46,.45,.94),box-shadow .4s ease}
+.product-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.btn-primary{background:#00d9ff;color:#000;transition:all .3s ease}
+.btn-primary:hover{background:#00b8d4;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,217,255,.4)}
+.btn-outline{border:1.5px solid #00d9ff;color:#00d9ff;transition:all .3s ease}
+.btn-outline:hover{background:#00d9ff;color:#000}
+.btn-whatsapp{background:#25D366;color:#fff;transition:all .3s ease}
+.btn-whatsapp:hover{background:#1ebe57;transform:translateY(-1px);box-shadow:0 4px 20px rgba(37,211,102,.3)}
+.nav-link{position:relative;color:#a0a0a0;transition:color .3s}
+.nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:#00d9ff;transition:width .3s}
+.nav-link:hover,.nav-link.active{color:#00d9ff}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.size-btn{border:1.5px solid #2a4a6a;padding:8px 16px;border-radius:4px;cursor:pointer;transition:all .2s}
+.size-btn:hover,.size-btn.selected{background:#00d9ff;color:#000;border-color:#00d9ff}
+.color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.color-swatch:hover,.color-swatch.selected{border-color:#00d9ff;transform:scale(1.15)}
+.review-card{background:#1a1a1a;border-radius:12px;padding:28px;box-shadow:0 2px 20px rgba(0,0,0,.5);border:1px solid #2a2a2a}
+.campaign-banner{background:linear-gradient(135deg,#00d9ff,#0099cc,#006b99);color:#000;position:relative;overflow:hidden}
+.campaign-banner::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.toast{position:fixed;bottom:24px;right:24px;background:#2c2c2c;color:#fff;padding:14px 24px;border-radius:8px;z-index:200;transform:translateY(100px);opacity:0;transition:all .4s ease;font-size:14px}
+.toast.show{transform:translateY(0);opacity:1}
+.mannequin-svg{filter:drop-shadow(0 10px 30px rgba(0,0,0,.1))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float-anim{animation:float 4s ease-in-out infinite}
+.hamburger-menu{display:none}
+@media(max-width:768px){.hamburger-menu{display:block}.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:#faf8f5;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.1);z-index:50}}
+.scroll-top{position:fixed;bottom:24px;left:24px;width:44px;height:44px;border-radius:50%;background:#8b7355;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:all .3s;z-index:90;border:none}
+.scroll-top.show{opacity:1}
+.search-bar{position:relative;width:100%;max-width:400px}
+.search-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #d4c5b3;border-radius:8px;max-height:300px;overflow-y:auto;z-index:40;margin-top:4px}
+.search-result-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid #f0ebe4;transition:background .2s}
+.search-result-item:hover{background:#f9f7f4}
+.search-result-item:last-child{border-bottom:none}
+.favorite-btn{transition:all .2s;cursor:pointer}
+.favorite-btn.favorited{color:#d74b78}
+.view-count{font-size:11px;color:#999}
+.coupon-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:32px;border-radius:12px;z-index:150;box-shadow:0 20px 60px rgba(0,0,0,.2);max-width:400px;width:90%}
+.coupon-modal.hidden{display:none}
+.star-rating{display:flex;gap:4px;cursor:pointer}
+.star-rating i{color:#d4c5b3;transition:color .2s}
+.star-rating i:hover,
+.star-rating i.filled{color:#8b7355}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto flex" style="background:#faf8f5"><!-- Main Content -->
+   <div id="main-content" class="flex-1 overflow-auto"><!-- Toast -->
+    <div id="toast" class="toast"></div><!-- Navigation -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-opacity-95" style="background:#1a1a1a;backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,217,255,.1)">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20 relative">
+       <a href="#" onclick="navigateTo('home');return false" class="font-display text-2xl md:text-3xl font-semibold tracking-wider" id="nav-brand" style="color:#00d9ff">ELARA</a>
+       <div class="nav-links hidden md:flex items-center gap-8" id="navLinks">
+        <a href="#" onclick="navigateTo('home');return false" class="nav-link active text-sm tracking-widest uppercase" data-page="home">Ana Sayfa</a> <a href="#" onclick="navigateTo('shop');return false" class="nav-link text-sm tracking-widest uppercase" data-page="shop">Mağaza</a> <a href="#" onclick="navigateTo('about');return false" class="nav-link text-sm tracking-widest uppercase" data-page="about">Hakkımızda</a> <a href="#" onclick="navigateTo('contact');return false" class="nav-link text-sm tracking-widest uppercase" data-page="contact">İletişim</a>
+       </div>
+       <div class="hidden md:block flex-1 max-w-xs ml-8">
+        <div class="relative"><input id="search-input" type="text" placeholder="Ürün ara..." class="w-full px-4 py-2 rounded-lg border text-sm" style="border-color:#2a2a2a;background:#2a2a2a;color:#f5f5f5" oninput="handleSearch()"> <i data-lucide="search" style="width:16px;height:16px;position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#888;pointer-events:none"></i>
+         <div id="search-results" class="search-results hidden"></div>
+        </div>
+       </div>
+       <div class="flex items-center gap-3">
+        <button onclick="showCouponModal()" title="Kupon" class="relative"> <i data-lucide="ticket" style="width:22px;height:22px;color:#a0a0a0"></i> </button> <button onclick="navigateTo('cart');return false" class="relative" title="Sepet"> <i data-lucide="shopping-bag" style="width:22px;height:22px;color:#a0a0a0"></i> <span id="cart-count" class="absolute -top-2 -right-2 w-5 h-5 rounded-full text-xs flex items-center justify-center text-black" style="background:#00d9ff;display:none">0</span> </button> <a id="navbar-whatsapp" href="https://wa.me/905551234567" target="_blank" rel="noopener noreferrer" title="WhatsApp" class="hover:opacity-75 transition">
+         <svg width="20" height="20" viewbox="0 0 24 24" fill="#25D366">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.52 5.855L0 24l6.335-1.652C8.07 23.395 9.983 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.875 0-3.63-.51-5.13-1.395l-.36-.21-3.765.99.99-3.63-.24-.375C2.535 15.63 1.95 13.875 1.95 12 1.95 6.465 6.465 1.95 12 1.95S22.05 6.465 22.05 12 17.535 21.75 12 21.75z" />
+         </svg></a> <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menü"> <i data-lucide="menu" style="width:24px;height:24px;color:#5a5a5a"></i> </button>
+       </div>
+      </div>
+     </div>
+    </nav><!-- HOME PAGE -->
+    <div id="page-home">
+     <!-- Hero -->
+     <section class="hero-bg" style="min-height:520px">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="min-height:520px">
+       <div class="pt-12 md:pt-0 z-10 max-w-2xl">
+        <p class="text-sm tracking-[.35em] uppercase mb-4" style="color:#00d9ff">YENİ SEZON 2025</p>
+        <h1 id="hero-slogan" class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-tight mb-6" style="color:#f5f5f5">Şıklığın<br>
+          yeni adresi</h1>
+        <p class="text-base md:text-lg mb-10" style="color:#c0c0c0;font-weight:300">Sezonun en trend parçalarını keşfedin. Kalite ve zarafetin buluşma noktası.</p><button onclick="navigateTo('shop')" class="btn-primary px-10 py-4 rounded-sm text-sm tracking-widest uppercase font-medium">Alışverişe Başla</button>
+       </div>
+      </div>
+     </section><!-- Campaign Banner -->
+     <section class="campaign-banner py-5">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-center">
+       <div class="flex items-center gap-2"><i data-lucide="percent" style="width:18px;height:18px"></i><span class="text-sm tracking-widest uppercase font-medium">Yeni Sezon %20 İndirim</span>
+       </div><span class="hidden sm:inline opacity-40">|</span>
+       <div class="flex items-center gap-2"><i data-lucide="truck" style="width:18px;height:18px"></i><span class="text-sm tracking-widest uppercase font-medium">150₺ Üzeri Kargo Bedava</span>
+       </div><span class="hidden sm:inline opacity-40">|</span>
+       <div class="flex items-center gap-2"><i data-lucide="shield-check" style="width:18px;height:18px"></i><span class="text-sm tracking-widest uppercase font-medium">Güvenli Alışveriş</span>
+       </div>
+      </div>
+     </section><!-- Featured Products -->
+     <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-14 fade-in">
+        <p class="text-sm tracking-[.35em] uppercase mb-3" style="color:#8b7355">KOLEKSİYON</p>
+        <h2 class="font-display text-3xl md:text-4xl font-light" style="color:#2c2c2c">Öne Çıkan Ürünler</h2>
+       </div>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="featured-products"></div>
+      </div>
+     </section><!-- Reviews -->
+     <section class="py-16 md:py-24" style="background:#f0ebe4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-14 fade-in">
+        <p class="text-sm tracking-[.35em] uppercase mb-3" style="color:#8b7355">MUTLU MÜŞTERİLER</p>
+        <h2 class="font-display text-3xl md:text-4xl font-light">Müşteri Yorumları</h2>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="review-card fade-in">
+         <div class="flex gap-1 mb-4">
+          ${'★'.repeat(5).split('').map(()=&gt;'<span style="color:#8b7355;font-size:16px">★</span>').join('')}
+         </div>
+         <p class="mb-5" style="color:#5a5a5a;font-weight:300;line-height:1.7">"Ürün çok kaliteli, çok memnun kaldım. Kumaşı harika, tam beden oldu. Kesinlikle tekrar alışveriş yapacağım."</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium" style="background:#c4ab8e">
+           A
+          </div>
+          <div>
+           <p class="font-medium text-sm">Ayşe K.</p>
+           <p class="text-xs" style="color:#999">İstanbul</p>
+          </div>
+         </div>
+        </div>
+        <div class="review-card fade-in">
+         <div class="flex gap-1 mb-4"><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span>
+         </div>
+         <p class="mb-5" style="color:#5a5a5a;font-weight:300;line-height:1.7">"Kargo çok hızlı geldi, paketleme de çok özenli. Elbise fotoğraftakinden bile güzel çıktı!"</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium" style="background:#8b7355">
+           Z
+          </div>
+          <div>
+           <p class="font-medium text-sm">Zeynep M.</p>
+           <p class="text-xs" style="color:#999">Ankara</p>
+          </div>
+         </div>
+        </div>
+        <div class="review-card fade-in">
+         <div class="flex gap-1 mb-4"><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#8b7355;font-size:16px">★</span><span style="color:#d4c5b3;font-size:16px">★</span>
+         </div>
+         <p class="mb-5" style="color:#5a5a5a;font-weight:300;line-height:1.7">"Butik kalitesinde ürünler, fiyatlar da çok uygun. Herkese tavsiye ederim. Müşteri hizmetleri de çok ilgili."</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium" style="background:#d4c5b3">
+           E
+          </div>
+          <div>
+           <p class="font-medium text-sm">Elif S.</p>
+           <p class="text-xs" style="color:#999">İzmir</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- SHOP PAGE -->
+    <div id="page-shop" style="display:none">
+     <section class="py-12 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-12">
+        <h1 class="font-display text-3xl md:text-5xl font-light mb-3">Mağaza</h1>
+        <p style="color:#6b6b6b;font-weight:300">Tüm ürünlerimizi keşfedin</p>
+       </div>
+       <div class="flex flex-wrap gap-3 justify-center mb-10">
+        <button onclick="filterProducts('all')" class="filter-btn btn-primary px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="all">Tümü</button> <button onclick="filterProducts('elbise')" class="filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="elbise">Elbiseler</button> <button onclick="filterProducts('ust')" class="filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="ust">Üst Giyim</button> <button onclick="filterProducts('alt')" class="filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="alt">Alt Giyim</button> <button onclick="filterProducts('ayakkabi')" class="filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="ayakkabi">Ayakkabı</button> <button onclick="filterProducts('aksesuar')" class="filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase" data-cat="aksesuar">Aksesuar</button>
+       </div>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="all-products"></div>
+      </div>
+     </section>
+    </div><!-- PRODUCT DETAIL PAGE -->
+    <div id="page-detail" style="display:none">
+     <section class="py-12 md:py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+       <button onclick="navigateTo('shop')" class="flex items-center gap-2 mb-8 nav-link text-sm tracking-wider uppercase"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Mağazaya Dön</button>
+       <div class="flex flex-col md:flex-row gap-10" id="detail-content"></div>
+      </div>
+     </section>
+    </div><!-- Coupon Modal -->
+    <div id="coupon-modal" class="coupon-modal hidden"><button onclick="closeCouponModal()" class="absolute top-4 right-4 text-2xl" style="background:none;border:none;cursor:pointer;color:#999">×</button>
+     <h2 class="font-display text-2xl mb-4" style="color:#8b7355">🎁 Kupon Kodları</h2>
+     <p class="text-sm mb-6" style="color:#6b6b6b">Aşağıdaki kodlardan birini seçin ve ödeme sırasında kullanın:</p>
+     <div class="space-y-3 mb-6">
+      <div class="p-4 rounded-lg border-2" style="border-color:#d4c5b3;background:#f9f7f4;cursor:pointer" onclick="copyCoupon('ELARA20')">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="font-semibold" style="color:#2c2c2c">ELARA20</p>
+         <p class="text-xs" style="color:#999">%20 İndirim</p>
+        </div><i data-lucide="copy" style="width:18px;height:18px;color:#8b7355"></i>
+       </div>
+      </div>
+      <div class="p-4 rounded-lg border-2" style="border-color:#d4c5b3;background:#f9f7f4;cursor:pointer" onclick="copyCoupon('SEZON15')">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="font-semibold" style="color:#2c2c2c">SEZON15</p>
+         <p class="text-xs" style="color:#999">%15 İndirim</p>
+        </div><i data-lucide="copy" style="width:18px;height:18px;color:#8b7355"></i>
+       </div>
+      </div>
+      <div class="p-4 rounded-lg border-2" style="border-color:#d4c5b3;background:#f9f7f4;cursor:pointer" onclick="copyCoupon('KARGO10')">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="font-semibold" style="color:#2c2c2c">KARGO10</p>
+         <p class="text-xs" style="color:#999">%10 İndirim</p>
+        </div><i data-lucide="copy" style="width:18px;height:18px;color:#8b7355"></i>
+       </div>
+      </div>
+     </div><button onclick="closeCouponModal()" class="btn-outline w-full py-2.5 rounded-lg text-sm tracking-widest uppercase font-medium">Kapat</button>
+    </div><!-- Coupon Overlay -->
+    <div id="coupon-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-140 hidden" onclick="closeCouponModal()"></div><!-- CART PAGE -->
+    <div id="page-cart" style="display:none">
+     <section class="py-12 md:py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-12">
+        <h1 class="font-display text-3xl md:text-5xl font-light mb-3">Sepetim</h1>
+        <p style="color:#6b6b6b;font-weight:300">Siparişinizi gözden geçirin</p>
+       </div>
+       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+         <div id="cart-items" class="space-y-4">
+          <p class="text-center py-12" style="color:#999">Sepetiniz boş</p>
+         </div>
+        </div>
+        <div class="bg-white rounded-xl p-8 border h-fit" style="border-color:#d4c5b3">
+         <h3 class="font-display text-xl mb-6">Sipariş Özeti</h3>
+         <div class="space-y-3 mb-6 pb-6" style="border-bottom:1px solid #d4c5b3">
+          <div class="flex justify-between text-sm">
+           <span style="color:#6b6b6b">Ara Toplam</span> <span id="subtotal">0₺</span>
+          </div>
+          <div class="flex justify-between text-sm">
+           <span style="color:#6b6b6b">Kargo</span> <span id="shipping" style="color:#25D366">Bedava</span>
+          </div>
+         </div>
+         <div class="flex justify-between text-lg font-semibold mb-6" style="color:#8b7355">
+          <span>Toplam</span> <span id="total">0₺</span>
+         </div><button onclick="navigateTo('checkout')" class="btn-primary w-full py-3 rounded-lg text-sm tracking-widest uppercase font-medium" id="checkout-btn">Ödemeye Geç</button> <button onclick="navigateTo('shop')" class="btn-outline w-full py-3 mt-3 rounded-lg text-sm tracking-widest uppercase font-medium">Alışverişe Devam Et</button>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- CHECKOUT PAGE -->
+    <div id="page-checkout" style="display:none">
+     <section class="py-12 md:py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-12">
+        <h1 class="font-display text-3xl md:text-5xl font-light mb-3">Ödeme</h1>
+        <p style="color:#6b6b6b;font-weight:300">Siparişinizi tamamlayın</p>
+       </div>
+       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+         <form onsubmit="handleCheckout(event)" class="space-y-8">
+          <div class="bg-white rounded-xl p-8 border" style="border-color:#d4c5b3">
+           <h3 class="font-display text-xl mb-6">Kişisel Bilgiler</h3>
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+             <label for="checkout-name" class="block text-sm font-medium mb-2">Ad Soyad</label> <input id="checkout-name" type="text" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="Adınız Soyadınız">
+            </div>
+            <div>
+             <label for="checkout-email" class="block text-sm font-medium mb-2">E-posta</label> <input id="checkout-email" type="email" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="ornek@email.com">
+            </div>
+            <div>
+             <label for="checkout-phone" class="block text-sm font-medium mb-2">Telefon</label> <input id="checkout-phone" type="tel" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="+90 555 123 4567">
+            </div>
+           </div>
+          </div>
+          <div class="bg-white rounded-xl p-8 border" style="border-color:#d4c5b3">
+           <h3 class="font-display text-xl mb-6">Teslimat Adresi</h3>
+           <div class="space-y-4">
+            <div>
+             <label for="checkout-address" class="block text-sm font-medium mb-2">Adres</label> <textarea id="checkout-address" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff;resize:vertical;height:80px" placeholder="Sokak, bina, daire vb..."></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div>
+              <label for="checkout-city" class="block text-sm font-medium mb-2">Şehir</label> <input id="checkout-city" type="text" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="İstanbul">
+             </div>
+             <div>
+              <label for="checkout-zip" class="block text-sm font-medium mb-2">Posta Kodu</label> <input id="checkout-zip" type="text" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="34000">
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="flex gap-3">
+           <button type="submit" id="checkout-whatsapp-btn" class="btn-whatsapp flex-1 py-3 rounded-lg text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2">
+            <svg width="20" height="20" viewbox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.52 5.855L0 24l6.335-1.652C8.07 23.395 9.983 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.875 0-3.63-.51-5.13-1.395l-.36-.21-3.765.99.99-3.63-.24-.375C2.535 15.63 1.95 13.875 1.95 12 1.95 6.465 6.465 1.95 12 1.95S22.05 6.465 22.05 12 17.535 21.75 12 21.75z" />
+            </svg> Siparişi Tamamla </button> <button type="button" onclick="navigateTo('cart')" class="btn-outline px-6 py-3 rounded-lg text-sm tracking-widest uppercase font-medium">Geri</button>
+          </div>
+         </form>
+        </div>
+        <div class="bg-white rounded-xl p-8 border h-fit" style="border-color:#d4c5b3">
+         <h3 class="font-display text-xl mb-6">Sipariş Özeti</h3>
+         <div id="checkout-summary" class="space-y-3 mb-6 pb-6" style="border-bottom:1px solid #d4c5b3">
+          <p class="text-sm" style="color:#999">Ürünler yüklenecek...</p>
+         </div>
+         <div class="flex justify-between text-lg font-semibold" style="color:#8b7355">
+          <span>Toplam</span> <span id="checkout-total">0₺</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div>
+    <div id="page-about" style="display:none;background:#f0ebe4">
+     <section class="py-12 md:py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-16">
+        <p class="text-sm tracking-[.35em] uppercase mb-3" style="color:#8b7355">BİZ KİMİZ</p>
+        <h1 class="font-display text-3xl md:text-5xl font-light mb-6" style="color:#2c2c2c">Hakkımızda</h1>
+        <p id="about-text" class="text-lg max-w-2xl mx-auto" style="color:#333;font-weight:300;line-height:1.8">Butiğimizde kaliteli ve şık ürünleri sizlerle buluşturuyoruz. Her parça özenle seçilir ve sizlere en iyi deneyimi sunmayı hedefleriz.</p>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-8 rounded-xl" style="background:#fff;border:1px solid #d4c5b3">
+         <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:#8b7355"><i data-lucide="gem" style="width:28px;height:28px;color:#fff"></i>
+         </div>
+         <h3 class="font-display text-xl mb-3" style="color:#2c2c2c">Kalite</h3>
+         <p class="text-sm" style="color:#333;font-weight:300">Her ürün titizlikle seçilir ve kalite kontrolünden geçer.</p>
+        </div>
+        <div class="text-center p-8 rounded-xl" style="background:#fff;border:1px solid #d4c5b3">
+         <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:#8b7355"><i data-lucide="heart" style="width:28px;height:28px;color:#fff"></i>
+         </div>
+         <h3 class="font-display text-xl mb-3" style="color:#2c2c2c">Tutku</h3>
+         <p class="text-sm" style="color:#333;font-weight:300">Modaya olan tutkumuzla her sezon yeni trendleri takip ediyoruz.</p>
+        </div>
+        <div class="text-center p-8 rounded-xl" style="background:#fff;border:1px solid #d4c5b3">
+         <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:#8b7355"><i data-lucide="users" style="width:28px;height:28px;color:#fff"></i>
+         </div>
+         <h3 class="font-display text-xl mb-3" style="color:#2c2c2c">Müşteri</h3>
+         <p class="text-sm" style="color:#333;font-weight:300">Müşteri memnuniyeti bizim için her şeyden önemlidir.</p>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- CONTACT PAGE -->
+    <div id="page-contact" style="display:none">
+     <section class="py-12 md:py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="text-center mb-16">
+        <p class="text-sm tracking-[.35em] uppercase mb-3" style="color:#8b7355">BİZE ULAŞIN</p>
+        <h1 class="font-display text-3xl md:text-5xl font-light mb-6">İletişim</h1>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div>
+         <div class="space-y-6">
+          <a id="whatsapp-link" href="https://wa.me/905551234567" target="_blank" rel="noopener noreferrer" class="btn-whatsapp flex items-center gap-4 px-6 py-4 rounded-lg text-lg font-medium">
+           <svg width="28" height="28" viewbox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.52 5.855L0 24l6.335-1.652C8.07 23.395 9.983 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.875 0-3.63-.51-5.13-1.395l-.36-.21-3.765.99.99-3.63-.24-.375C2.535 15.63 1.95 13.875 1.95 12 1.95 6.465 6.465 1.95 12 1.95S22.05 6.465 22.05 12 17.535 21.75 12 21.75z" />
+           </svg><span id="whatsapp-text">WhatsApp ile İletişim</span> </a>
+          <div class="flex items-center gap-4 p-5 rounded-lg" style="background:#f0ebe4">
+           <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#8b7355"><i data-lucide="phone" style="width:20px;height:20px;color:#fff"></i>
+           </div>
+           <div>
+            <p class="text-xs uppercase tracking-wider mb-1" style="color:#8b7355">Telefon</p>
+            <p id="phone-display" class="font-medium">+90 555 123 4567</p>
+           </div>
+          </div><a id="instagram-link" href="https://instagram.com/elaraboutique" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-5 rounded-lg" style="background:#f0ebe4">
+           <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)"><i data-lucide="instagram" style="width:20px;height:20px;color:#fff"></i>
+           </div>
+           <div>
+            <p class="text-xs uppercase tracking-wider mb-1" style="color:#8b7355">Instagram</p>
+            <p id="insta-display" class="font-medium">@elaraboutique</p>
+           </div></a>
+          <div class="flex items-center gap-4 p-5 rounded-lg" style="background:#f0ebe4">
+           <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#8b7355"><i data-lucide="map-pin" style="width:20px;height:20px;color:#fff"></i>
+           </div>
+           <div>
+            <p class="text-xs uppercase tracking-wider mb-1" style="color:#8b7355">Adres</p>
+            <p id="address-display" class="font-medium">İstanbul, Türkiye</p>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div>
+         <form onsubmit="handleContactForm(event)" class="space-y-5">
+          <div><label for="contact-name" class="block text-sm mb-2 font-medium">Adınız</label><input id="contact-name" type="text" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="Adınızı giriniz">
+          </div>
+          <div><label for="contact-email" class="block text-sm mb-2 font-medium">E-posta</label><input id="contact-email" type="email" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff" placeholder="ornek@email.com">
+          </div>
+          <div><label for="contact-msg" class="block text-sm mb-2 font-medium">Mesajınız</label><textarea id="contact-msg" rows="4" required class="w-full px-4 py-3 rounded-lg border text-sm" style="border-color:#d4c5b3;background:#fff;resize:vertical" placeholder="Mesajınızı yazınız..."></textarea>
+          </div><button type="submit" class="btn-primary w-full py-3 rounded-lg text-sm tracking-widest uppercase font-medium">Gönder</button>
+         </form>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Footer -->
+    <footer style="background:#2c2c2c;color:#fff" class="py-12 mt-auto">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+       <div>
+        <h3 id="footer-brand" class="font-display text-2xl mb-4" style="color:#c4ab8e">ELARA</h3>
+        <p class="text-sm" style="color:#999;line-height:1.7">Şıklığın ve kalitenin buluşma noktası. Her mevsim, her tarza uygun parçalar.</p>
+       </div>
+       <div>
+        <h4 class="text-sm tracking-widest uppercase mb-4" style="color:#c4ab8e">Sayfalar</h4>
+        <div class="space-y-2">
+         <a href="#" onclick="navigateTo('home');return false" class="block text-sm hover:text-white" style="color:#999;transition:color .2s">Ana Sayfa</a> <a href="#" onclick="navigateTo('shop');return false" class="block text-sm hover:text-white" style="color:#999;transition:color .2s">Mağaza</a> <a href="#" onclick="navigateTo('about');return false" class="block text-sm hover:text-white" style="color:#999;transition:color .2s">Hakkımızda</a> <a href="#" onclick="navigateTo('contact');return false" class="block text-sm hover:text-white" style="color:#999;transition:color .2s">İletişim</a>
+        </div>
+       </div>
+       <div>
+        <h4 class="text-sm tracking-widest uppercase mb-4" style="color:#c4ab8e">İletişim</h4>
+        <div class="space-y-2">
+         <p id="footer-phone" class="text-sm" style="color:#999">+90 555 123 4567</p>
+         <p id="footer-address" class="text-sm" style="color:#999">İstanbul, Türkiye</p>
+        </div>
+       </div>
+      </div>
+      <div class="border-t pt-6 text-center" style="border-color:rgba(255,255,255,.1)">
+       <p class="text-xs" style="color:#666">© 2025 <span id="footer-brand2">ELARA</span>. Tüm hakları saklıdır.</p>
+      </div>
+     </div>
+    </footer>
+   </div><!-- Right Panel - Product Management -->
+   <div id="admin-panel" class="w-80 border-l flex flex-col" style="border-color:#d4c5b3;background:#fff;max-height:100vh"><!-- Header -->
+    <div class="p-6 border-b" style="border-color:#d4c5b3">
+     <h2 class="font-display text-xl" style="color:#8b7355">📦 Ürün Yönetimi</h2>
+     <p class="text-xs mt-2" style="color:#999">Ürün ekle, düzenle veya sil</p>
+    </div><!-- Content -->
+    <div class="flex-1 overflow-auto p-6 space-y-4"><!-- Add Product Form -->
+     <div class="bg-blue-50 p-4 rounded-lg" style="background:#f0f9ff;border:1px solid #bfdbfe">
+      <h3 class="font-medium text-sm mb-3" style="color:#1e40af">➕ Yeni Ürün Ekle</h3>
+      <div class="space-y-3">
+       <div><label class="text-xs font-medium block mb-1">Ürün Adı</label> <input id="product-name" type="text" class="w-full px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3" placeholder="Örn: İpek Elbise">
+       </div>
+       <div><label class="text-xs font-medium block mb-1">Fiyat (₺)</label> <input id="product-price" type="number" class="w-full px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3" placeholder="1290" min="0">
+       </div>
+       <div><label class="text-xs font-medium block mb-1">Kategori</label> <select id="product-category" class="w-full px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3"> <option value="elbise">Elbiseler</option> <option value="ust">Üst Giyim</option> <option value="alt">Alt Giyim</option> <option value="ayakkabi">Ayakkabı</option> <option value="aksesuar">Aksesuar</option> </select>
+       </div>
+       <div><label class="text-xs font-medium block mb-1">📷 Resim (URL veya Dosya)</label>
+        <div class="flex gap-2 mb-2">
+         <input id="product-image" type="text" class="flex-1 px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3" placeholder="https://example.com/image.jpg" title="Resim URL'si"> <label class="px-3 py-2 rounded text-sm cursor-pointer font-medium" style="background:#8b7355;color:#fff;border:1px solid #8b7355;display:flex;align-items:center;gap:4px"> <i data-lucide="upload" style="width:14px;height:14px"></i> <input id="image-upload" type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event)"> Dosya </label>
+        </div>
+        <p class="text-xs" style="color:#666">✅ URL yapıştır VEYA 📁 Dosya seç (JPG, PNG, WebP)</p>
+        <p class="text-xs mt-1" style="color:#999">💡 Instagram/Pinterest: Resme sağ tıkla → "Resim Bağlantısını Kopyala"</p>
+       </div>
+       <div><label class="text-xs font-medium block mb-1">Bedeler (virgülle ayırın)</label> <input id="product-sizes" type="text" class="w-full px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3" placeholder="S, M, L, XL">
+       </div>
+       <div><label class="text-xs font-medium block mb-1">Açıklama</label> <textarea id="product-description" class="w-full px-3 py-2 rounded text-sm border" style="border-color:#d4c5b3;resize:vertical;height:60px" placeholder="Ürün özellikleri..."></textarea>
+       </div><button onclick="addNewProduct()" class="w-full btn-primary py-2.5 rounded text-xs font-medium tracking-widest uppercase">Ürün Ekle</button>
+      </div>
+     </div><!-- Products List -->
+     <div id="products-list" class="space-y-3">
+      <p class="text-xs" style="color:#999">Ürünler yüklenecek...</p>
+     </div>
+    </div>
+   </div>
+  </div><!-- Scroll to top --> <button class="scroll-top" id="scrollTop" onclick="document.getElementById('main-content').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı çık"><i data-lucide="chevron-up" style="width:20px;height:20px"></i></button>
+  <script>
+// Data SDK Initialize
+let allProducts = [];
+let dataLoaded = false;
+
+const dataHandler = {
+  onDataChanged(data) {
+    allProducts = data || [];
+    dataLoaded = true;
+    renderProductsList();
+    if (document.getElementById('all-products').innerHTML === '') {
+      renderProducts('all-products', allProducts);
+    }
+  }
+};
+
+// Initialize Data SDK
+(async () => {
+  if (window.dataSdk) {
+    const initResult = await window.dataSdk.init(dataHandler);
+    if (!initResult.isOk) {
+      console.error('Data SDK init failed');
+    }
+  }
+})();
+
+// Handle image upload
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64 = e.target.result;
+    document.getElementById('product-image').value = base64;
+    showToast('✅ Resim yüklendi! (Base64)');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Add new product
+async function addNewProduct() {
+  const name = document.getElementById('product-name').value.trim();
+  const price = parseFloat(document.getElementById('product-price').value);
+  const category = document.getElementById('product-category').value;
+  const image = document.getElementById('product-image').value.trim();
+  const sizes = document.getElementById('product-sizes').value.trim();
+  const description = document.getElementById('product-description').value.trim();
+
+  if (!name || !price || !category || !image || !sizes || !description) {
+    showToast('⚠️ Lütfen tüm alanları doldurunuz!');
+    return;
+  }
+
+  if (allProducts.length >= 999) {
+    showToast('❌ Maksimum 999 ürün eklenebilir!');
+    return;
+  }
+
+  const newProduct = {
+    id: Date.now().toString(),
+    name,
+    price,
+    category,
+    image,
+    sizes,
+    description
+  };
+
+  const addBtn = event.target;
+  addBtn.disabled = true;
+  addBtn.textContent = 'Ekleniyor...';
+
+  const result = await window.dataSdk.create(newProduct);
+  
+  if (result.isOk) {
+    document.getElementById('product-name').value = '';
+    document.getElementById('product-price').value = '';
+    document.getElementById('product-category').value = 'elbise';
+    document.getElementById('product-image').value = '';
+    document.getElementById('product-sizes').value = '';
+    document.getElementById('product-description').value = '';
+    showToast('✅ Ürün başarıyla eklendi!');
+  } else {
+    showToast('❌ Ürün eklenirken hata oluştu!');
+  }
+
+  addBtn.disabled = false;
+  addBtn.textContent = 'Ürün Ekle';
+}
+
+// Delete product
+async function deleteProduct(productId) {
+  const product = allProducts.find(p => p.__backendId === productId);
+  if (!product) return;
+
+  const deleteBtn = event.target;
+  deleteBtn.disabled = true;
+  deleteBtn.textContent = '⏳';
+
+  const result = await window.dataSdk.delete(product);
+  
+  if (result.isOk) {
+    showToast('🗑️ Ürün silindi!');
+  } else {
+    showToast('❌ Ürün silinemedi!');
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = '🗑️';
+  }
+}
+
+// Render products list in admin panel
+function renderProductsList() {
+  const container = document.getElementById('products-list');
+  
+  if (allProducts.length === 0) {
+    container.innerHTML = '<p class="text-xs text-center py-8" style="color:#999">Henüz ürün eklenmedi</p>';
+    return;
+  }
+
+  container.innerHTML = allProducts.map(p => `
+    <div class="p-4 rounded-lg border" style="border-color:#d4c5b3;background:#f9f7f4">
+      <div class="flex gap-3">
+        <div class="w-16 h-16 rounded bg-cover bg-center flex-shrink-0" style="background-image:url('${p.image}');border:1px solid #d4c5b3"></div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-medium text-sm truncate" style="color:#2c2c2c">${p.name}</h4>
+          <p class="text-xs mb-1" style="color:#8b7355;font-weight:600">${p.price}₺</p>
+          <p class="text-xs truncate" style="color:#999">${p.sizes}</p>
+          <div class="mt-2 flex gap-2">
+            <button onclick="deleteProduct('${p.__backendId}')" class="flex-1 px-2 py-1.5 rounded text-xs bg-red-100 hover:bg-red-200 transition" style="color:#dc2626;border:1px solid #fecaca">🗑️ Sil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Product Data
+const defaultProducts = [
+  {id:1,name:"İpek Midi Elbise",price:1290,oldPrice:1590,cat:"elbise",desc:"%100 ipek kumaş, zarif kesim",fabric:"İpek",colors:["#2c2c2c","#8b7355","#7a3b3b"],sizes:["S","M","L"],badge:"İndirim",gradient:"linear-gradient(135deg,#e8ddd1,#d4c5b3)"},
+  {id:2,name:"Oversize Blazer Ceket",price:1490,oldPrice:null,cat:"ust",desc:"Rahat kalıp, şık tasarım",fabric:"Polyester karışım",colors:["#2c2c2c","#f5ede4"],sizes:["S","M","L","XL"],badge:"Yeni",gradient:"linear-gradient(135deg,#d4c5b3,#c4ab8e)"},
+  {id:3,name:"Yüksek Bel Pantolon",price:790,oldPrice:990,cat:"alt",desc:"Yüksek bel, düz paça",fabric:"Viskon",colors:["#2c2c2c","#f5ede4","#8b7355"],sizes:["S","M","L"],badge:"İndirim",gradient:"linear-gradient(135deg,#f0ebe4,#e8ddd1)"},
+  {id:4,name:"Altın Zincir Kolye",price:390,oldPrice:null,cat:"aksesuar",desc:"Zarif altın kaplama",fabric:"Paslanmaz çelik",colors:["#c4ab8e"],sizes:["Standart"],badge:null,gradient:"linear-gradient(135deg,#c4ab8e,#8b7355)"},
+  {id:5,name:"Deri Topuklu Ayakkabı",price:1590,oldPrice:1890,cat:"ayakkabi",desc:"Konforlu ve şık tasarım",image:"https://images.unsplash.com/photo-1548062607-b231b56d3086?w=400&h=500&fit=crop",fabric:"Deri",colors:["#2c2c2c","#8b7355","#c4ab8e"],sizes:["36","37","38","39","40"],badge:"İndirim",gradient:"linear-gradient(135deg,#d4c5b3,#c4ab8e)"}
+];
+
+let cart = [];
+let currentFilter = 'all';
+let favoritedProducts = new Set();
+let productViews = {};
+
+// Render product card
+function productCard(p) {
+  // Determine if p is from database or hardcoded
+  const isFromDB = p.__backendId ? true : false;
+  const badge = !isFromDB && p.badge ? `<span class="absolute top-3 left-3 text-xs tracking-wider uppercase px-3 py-1 rounded-sm text-white" style="background:${p.badge==='İndirim'?'#7a3b3b':'#8b7355'}">${p.badge}</span>` : '';
+  const oldP = !isFromDB && p.oldPrice ? `<span class="line-through text-sm" style="color:#999">${p.oldPrice}₺</span>` : '';
+  const gradient = !isFromDB && p.gradient ? p.gradient : "linear-gradient(135deg,#e8ddd1,#d4c5b3)";
+  const productId = p.__backendId || p.id;
+  const viewCount = isFromDB ? (productViews[productId] || 0) : 0;
+  const isFavorited = isFromDB ? favoritedProducts.has(productId) : false;
+  
+  return `<div class="product-card rounded-xl overflow-hidden bg-white cursor-pointer" onclick="showDetail('${productId}',${isFromDB})">
+    <div class="relative" style="height:280px;background:${gradient};position:relative">
+      ${badge}
+      ${isFromDB ? `<button onclick="event.stopPropagation();toggleFavorite('${productId}')" class="absolute top-3 right-3 favorite-btn ${isFavorited?'favorited':''}" style="background:rgba(255,255,255,.9);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s"><i data-lucide="heart" style="width:18px;height:18px"></i></button>` : ''}
+      <div class="absolute inset-0 flex items-center justify-center overflow-hidden">
+        ${p.image && isFromDB ? `<img src="${p.image}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover" onerror="this.style.background='#d4c5b3';this.style.display='none'">` : `
+        <svg width="80" height="100" viewBox="0 0 80 100" fill="none" opacity="0.3">
+          <rect x="15" y="10" width="50" height="60" rx="4" stroke="#2c2c2c" stroke-width="1.5"/>
+          <path d="M25 10 C25 0 55 0 55 10" stroke="#2c2c2c" stroke-width="1.5" fill="none"/>
+          <line x1="40" y1="30" x2="40" y2="55" stroke="#2c2c2c" stroke-width="1"/>
+          <line x1="30" y1="42" x2="50" y2="42" stroke="#2c2c2c" stroke-width="1"/>
+        </svg>
+        `}
+      </div>
+    </div>
+    <div class="p-5">
+      <h3 class="font-display text-lg mb-1">${p.name}</h3>
+      <p class="text-xs mb-3" style="color:#999">${isFromDB ? p.description : p.desc}</p>
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="font-semibold text-lg" style="color:#8b7355">${p.price}₺</span>
+            ${oldP}
+          </div>
+          ${viewCount > 0 ? `<p class="view-count">👁️ ${viewCount} görüntüleme</p>` : ''}
+        </div>
+      </div>
+      <button onclick="event.stopPropagation();addToCart('${productId}',${isFromDB})" class="btn-primary w-full py-2.5 rounded-sm text-xs tracking-widest uppercase">Sepete Ekle</button>
+    </div>
+  </div>`;
+}
+
+function renderProducts(container, list) {
+  document.getElementById(container).innerHTML = list.map(productCard).join('');
+  lucide.createIcons();
+}
+
+function filterProducts(cat) {
+  currentFilter = cat;
+  const allToShow = [...defaultProducts, ...allProducts];
+  const filtered = cat === 'all' ? allToShow : allToShow.filter(p => {
+    const category = p.category || p.cat;
+    return category === cat;
+  });
+  if (filtered.length === 0) {
+    document.getElementById('all-products').innerHTML = '<div class="col-span-full text-center py-12" style="color:#999">Bu kategoride ürün bulunmamaktadır</div>';
+  } else {
+    renderProducts('all-products', filtered);
+  }
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if (b.dataset.cat === cat) { b.className = 'filter-btn btn-primary px-6 py-2 rounded-sm text-xs tracking-widest uppercase'; }
+    else { b.className = 'filter-btn btn-outline px-6 py-2 rounded-sm text-xs tracking-widest uppercase'; }
+  });
+}
+
+function showDetail(id, isFromDB) {
+  let p;
+  if (isFromDB) {
+    p = allProducts.find(x => x.__backendId === id);
+    if (p) {
+      productViews[id] = (productViews[id] || 0) + 1;
+    }
+  } else {
+    p = defaultProducts.find(x => x.id === parseInt(id));
+  }
+  
+  if (!p) return;
+  
+  const oldP = !isFromDB && p.oldPrice ? `<span class="line-through text-xl" style="color:#999">${p.oldPrice}₺</span>` : '';
+  const discount = !isFromDB && p.oldPrice ? `<span class="text-sm px-3 py-1 rounded-sm text-white" style="background:#7a3b3b">%${Math.round((1-p.price/p.oldPrice)*100)} İndirim</span>` : '';
+  const gradient = !isFromDB && p.gradient ? p.gradient : "linear-gradient(135deg,#e8ddd1,#d4c5b3)";
+  const catMap = {"elbise":"ELBİSE","ust":"ÜST GİYİM","alt":"ALT GİYİM","aksesuar":"AKSESUAR"};
+  const catLabel = isFromDB ? catMap[p.category] || "ÜRÜN" : catMap[p.cat] || "ÜRÜN";
+  const fabric = !isFromDB && p.fabric ? p.fabric : "Kaliteli Kumaş";
+  const colors = !isFromDB && p.colors ? p.colors : [];
+  const sizes = isFromDB ? p.sizes.split(',').map(s => s.trim()) : p.sizes;
+  const productId = p.__backendId || p.id;
+  const isFavorited = isFromDB ? favoritedProducts.has(productId) : false;
+  const viewCount = isFromDB ? (productViews[productId] || 0) : 0;
+  
+  document.getElementById('detail-content').innerHTML = `
+    <div class="md:w-1/2 rounded-xl overflow-hidden" style="min-height:400px;background:${gradient}">
+      <div class="w-full h-full flex items-center justify-center" style="min-height:400px">
+        ${p.image && isFromDB ? `<img src="${p.image}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover" onerror="this.style.background='#d4c5b3';console.error('Image failed:',this.src)">` : `
+        <svg width="120" height="160" viewBox="0 0 80 100" fill="none" opacity="0.25">
+          <rect x="15" y="10" width="50" height="60" rx="4" stroke="#2c2c2c" stroke-width="1.5"/>
+          <path d="M25 10 C25 0 55 0 55 10" stroke="#2c2c2c" stroke-width="1.5" fill="none"/>
+        </svg>
+        `}
+      </div>
+    </div>
+    <div class="md:w-1/2">
+      <p class="text-xs tracking-[.3em] uppercase mb-2" style="color:#8b7355">${catLabel}</p>
+      <div class="flex items-start justify-between mb-4">
+        <h1 class="font-display text-3xl md:text-4xl font-light">${p.name}</h1>
+        ${isFromDB ? `<button onclick="toggleFavorite('${productId}')" class="favorite-btn ${isFavorited?'favorited':''}" style="background:none;border:none;font-size:28px;cursor:pointer;margin-top:-4px"><i data-lucide="heart" style="width:28px;height:28px;margin:0"></i></button>` : ''}
+      </div>
+      ${viewCount > 0 ? `<p class="view-count mb-4">👁️ ${viewCount} kişi bu ürünü görüntüledi</p>` : ''}
+      <div class="flex items-center gap-4 mb-6">
+        <span class="font-semibold text-3xl" style="color:#8b7355">${p.price}₺</span>
+        ${oldP} ${discount}
+      </div>
+      <p class="mb-6" style="color:#6b6b6b;font-weight:300;line-height:1.7">${isFromDB ? p.description : p.desc}. Özel tasarım, yüksek kalite kumaş ile hazırlanmıştır.</p>
+      <div class="mb-5">
+        <p class="text-sm font-medium mb-2">Kumaş: <span style="color:#6b6b6b;font-weight:300">${fabric}</span></p>
+      </div>
+      ${colors.length > 0 ? `
+      <div class="mb-5">
+        <p class="text-sm font-medium mb-3">Renk</p>
+        <div class="flex gap-3">${colors.map((c,i) => `<div class="color-swatch ${i===0?'selected':''}" style="background:${c}" onclick="this.parentElement.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));this.classList.add('selected')"></div>`).join('')}</div>
+      </div>
+      ` : ''}
+      <div class="mb-8">
+        <p class="text-sm font-medium mb-3">Beden</p>
+        <div class="flex gap-2 flex-wrap">${sizes.map((s,i) => `<button class="size-btn text-sm ${i===0?'selected':''}" onclick="this.parentElement.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('selected'));this.classList.add('selected')">${s}</button>`).join('')}</div>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="addToCart('${productId}',${isFromDB})" class="btn-primary flex-1 py-3.5 rounded-sm text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2"><i data-lucide="shopping-bag" style="width:16px;height:16px"></i> Sepete Ekle</button>
+        <a href="https://wa.me/905551234567?text=${encodeURIComponent('Merhaba, '+p.name+' hakkında bilgi almak istiyorum.')}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp px-5 py-3.5 rounded-sm flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.52 5.855L0 24l6.335-1.652C8.07 23.395 9.983 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.875 0-3.63-.51-5.13-1.395l-.36-.21-3.765.99.99-3.63-.24-.375C2.535 15.63 1.95 13.875 1.95 12 1.95 6.465 6.465 1.95 12 1.95S22.05 6.465 22.05 12 17.535 21.75 12 21.75z"/></svg></a>
+      </div>
+    </div>`;
+  navigateTo('detail');
+  lucide.createIcons();
+}
+
+function addToCart(id, isFromDB) {
+  let p;
+  if (isFromDB) {
+    p = allProducts.find(x => x.__backendId === id);
+  } else {
+    p = defaultProducts.find(x => x.id === parseInt(id));
+  }
+  if (!p) return;
+  
+  const colors = !isFromDB && p.colors ? p.colors : [];
+  const selectedColor = document.querySelector('.color-swatch.selected');
+  const selectedSize = document.querySelector('.size-btn.selected');
+  
+  if (colors.length > 0 && !selectedColor) {
+    showToast('⚠️ Lütfen renk seçiniz!');
+    return;
+  }
+  
+  if (!selectedSize) {
+    showToast('⚠️ Lütfen beden seçiniz!');
+    return;
+  }
+  
+  const cartItem = {
+    ...p,
+    selectedColor: selectedColor ? selectedColor.style.background : null,
+    selectedSize: selectedSize.textContent
+  };
+  
+  cart.push(cartItem);
+  const countEl = document.getElementById('cart-count');
+  countEl.style.display = 'flex';
+  countEl.textContent = cart.length;
+  showToast(`${p.name} (${cartItem.selectedSize}) sepete eklendi! 🛍️`);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Navigation
+function navigateTo(page) {
+  ['home','shop','detail','about','contact','cart','checkout'].forEach(p => {
+    document.getElementById('page-'+p).style.display = p === page ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.page === page);
+  });
+  document.getElementById('main-content').scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('navLinks').classList.remove('open');
+  if (page === 'shop') {
+    // Mix hardcoded + database products
+    const allToShow = [...defaultProducts, ...allProducts];
+    filterProducts(currentFilter);
+  }
+  if (page === 'detail') lucide.createIcons();
+  if (page === 'cart') renderCartPage();
+  if (page === 'checkout') renderCheckoutPage();
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function handleContactForm(e) {
+  e.preventDefault();
+  e.target.reset();
+  showToast('Mesajınız gönderildi! Teşekkürler 💌');
+}
+
+// Search functionality
+function handleSearch() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  const resultsDiv = document.getElementById('search-results');
+  
+  if (query.length < 2) {
+    resultsDiv.classList.add('hidden');
+    return;
+  }
+  
+  const allToSearch = [...defaultProducts, ...allProducts];
+  const filtered = allToSearch.filter(p => 
+    (p.name && p.name.toLowerCase().includes(query)) ||
+    (p.description && p.description.toLowerCase().includes(query)) ||
+    (p.desc && p.desc.toLowerCase().includes(query))
+  ).slice(0, 8);
+  
+  if (filtered.length === 0) {
+    resultsDiv.innerHTML = '<div class="search-result-item">Ürün bulunamadı</div>';
+    resultsDiv.classList.remove('hidden');
+    return;
+  }
+  
+  resultsDiv.innerHTML = filtered.map(p => `
+    <div class="search-result-item" onclick="showDetail('${p.id}',${p.__backendId?'true':'false'})">
+      <p class="font-medium text-sm">${p.name}</p>
+      <p class="text-xs" style="color:#8b7355">${p.price || p.__backendId ? 'Database ürünü' : 'Öne çıkan ürün'}₺</p>
+    </div>
+  `).join('');
+  resultsDiv.classList.remove('hidden');
+}
+
+// Close search when clicking outside
+document.addEventListener('click', (e) => {
+  const searchBar = document.querySelector('.search-bar');
+  if (searchBar && !searchBar.contains(e.target)) {
+    document.getElementById('search-results').classList.add('hidden');
+  }
+  // Close mobile menu when clicking outside
+  const navLinks = document.getElementById('navLinks');
+  if (navLinks && !navLinks.contains(e.target) && !e.target.closest('.hamburger-menu')) {
+    navLinks.classList.remove('open');
+  }
+});
+
+// Favorite functions
+function toggleFavorite(productId) {
+  if (favoritedProducts.has(productId)) {
+    favoritedProducts.delete(productId);
+    showToast('❤️ Favorilerden kaldırıldı');
+  } else {
+    favoritedProducts.add(productId);
+    showToast('❤️ Favorilere eklendi!');
+  }
+  renderProducts('all-products', allProducts);
+  lucide.createIcons();
+}
+
+// Coupon modal functions
+function showCouponModal() {
+  document.getElementById('coupon-modal').classList.remove('hidden');
+  document.getElementById('coupon-overlay').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function closeCouponModal() {
+  document.getElementById('coupon-modal').classList.add('hidden');
+  document.getElementById('coupon-overlay').classList.add('hidden');
+}
+
+function copyCoupon(code) {
+  navigator.clipboard.writeText(code).then(() => {
+    showToast(`✅ "${code}" kopyalandı! Ödeme sırasında yapıştırın.`);
+    closeCouponModal();
+  });
+}
+
+// Cart functions
+function renderCartPage() {
+  if (cart.length === 0) {
+    document.getElementById('cart-items').innerHTML = '<p class="text-center py-12" style="color:#999">Sepetiniz boş</p>';
+    document.getElementById('checkout-btn').disabled = true;
+    document.getElementById('subtotal').textContent = '0₺';
+    document.getElementById('total').textContent = '0₺';
+    return;
+  }
+
+  const subtotal = cart.reduce((sum, p) => sum + p.price, 0);
+  const total = subtotal;
+
+  document.getElementById('subtotal').textContent = subtotal + '₺';
+  document.getElementById('total').textContent = total + '₺';
+  document.getElementById('checkout-btn').disabled = false;
+
+  document.getElementById('cart-items').innerHTML = cart.map((p, i) => `
+    <div class="bg-white rounded-xl p-6 border flex gap-6" style="border-color:#d4c5b3">
+      <div class="w-24 h-24 rounded-lg bg-cover bg-center flex-shrink-0" style="background-image:url('${p.image}');background-color:#d4c5b3;border:1px solid #d4c5b3"></div>
+      <div class="flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-display text-lg mb-1">${p.name}</h3>
+          <p class="text-sm" style="color:#999">${p.sizes || p.description}</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-lg" style="color:#8b7355">${p.price}₺</span>
+          <button onclick="removeFromCart(${i})" class="px-3 py-2 rounded text-sm" style="background:#fee;color:#c41e3a;border:1px solid #fcc;transition:all .2s" onmouseover="this.style.background='#fdd'" onmouseout="this.style.background='#fee'">🗑️ Sil</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  const countEl = document.getElementById('cart-count');
+  if (cart.length === 0) {
+    countEl.style.display = 'none';
+  } else {
+    countEl.textContent = cart.length;
+  }
+  renderCartPage();
+  showToast('Ürün sepetten kaldırıldı 🗑️');
+}
+
+function renderCheckoutPage() {
+  const subtotal = cart.reduce((sum, p) => sum + p.price, 0);
+  const total = subtotal;
+
+  document.getElementById('checkout-total').textContent = total + '₺';
+
+  document.getElementById('checkout-summary').innerHTML = cart.map(p => `
+    <div class="flex justify-between text-sm py-2" style="border-bottom:1px solid #f0ebe4">
+      <span>${p.name}</span>
+      <span class="font-medium">${p.price}₺</span>
+    </div>
+  `).join('') + `
+    <div class="flex justify-between text-lg font-semibold mt-4" style="color:#8b7355">
+      <span>Toplam</span>
+      <span>${total}₺</span>
+    </div>
+  `;
+}
+
+function handleCheckout(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('checkout-name').value;
+  const email = document.getElementById('checkout-email').value;
+  const phone = document.getElementById('checkout-phone').value;
+  const address = document.getElementById('checkout-address').value;
+  const city = document.getElementById('checkout-city').value;
+  const zip = document.getElementById('checkout-zip').value;
+
+  const message = `Merhaba! Aşağıdaki bilgilerle sipariş vermek istiyorum:
+
+👤 Ad: ${name}
+📧 E-posta: ${email}
+📱 Telefon: ${phone}
+
+📍 Adres: ${address}, ${city} ${zip}
+
+🛍️ Ürünler:
+${cart.map(p => `• ${p.name} - ${p.price}₺`).join('\n')}
+
+💰 Toplam: ${cart.reduce((sum, p) => sum + p.price, 0)}₺`;
+
+  // Get WhatsApp number from config
+  const config = window.elementSdk?.config || defaultConfig;
+  const waNum = (config.whatsapp_number || defaultConfig.whatsapp_number).replace(/[^0-9]/g,'');
+  const url = `https://wa.me/${waNum}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, '_blank');
+  
+  setTimeout(() => {
+    cart = [];
+    document.getElementById('cart-count').style.display = 'none';
+    showToast('✅ Sipariş başarıyla gönderildi! WhatsApp üzerinden onay bekleniyor 🎉');
+    navigateTo('home');
+  }, 500);
+}
+
+// Scroll observer for animations
+const mainContent = document.getElementById('main-content');
+function checkFadeIn() {
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+}
+mainContent.addEventListener('scroll', () => {
+  checkFadeIn();
+  const st = document.getElementById('scrollTop');
+  st.classList.toggle('show', mainContent.scrollTop > 400);
+});
+
+// Init with fade-in trigger
+renderProducts('featured-products', defaultProducts.slice(0, 4));
+renderProducts('all-products', defaultProducts);
+lucide.createIcons();
+document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+setTimeout(checkFadeIn, 200);
+
+// Element SDK
+const defaultConfig = {
+  brand_name: 'ELARA',
+  slogan: 'Şıklığın yeni adresi',
+  about_text: 'Butiğimizde kaliteli ve şık ürünleri sizlerle buluşturuyoruz. Her parça özenle seçilir ve sizlere en iyi deneyimi sunmayı hedefleriz.',
+  whatsapp_number: '+90 555 123 4567',
+  instagram_handle: '@elaraboutique',
+  phone_number: '+90 555 123 4567',
+  address: 'İstanbul, Türkiye',
+  background_color: '#ffffff',
+  surface_color: '#f5f0eb',
+  text_color: '#1a1a1a',
+  primary_action_color: '#d946a6',
+  secondary_action_color: '#ec4899',
+  font_family: 'Cormorant Garamond',
+  font_size: 16
+};
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      const brand = config.brand_name || defaultConfig.brand_name;
+      const slogan = config.slogan || defaultConfig.slogan;
+      const about = config.about_text || defaultConfig.about_text;
+      const wa = config.whatsapp_number || defaultConfig.whatsapp_number;
+      const insta = config.instagram_handle || defaultConfig.instagram_handle;
+      const phone = config.phone_number || defaultConfig.phone_number;
+      const addr = config.address || defaultConfig.address;
+      const bg = config.background_color || defaultConfig.background_color;
+      const primary = config.primary_action_color || defaultConfig.primary_action_color;
+      const font = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+
+      document.getElementById('nav-brand').textContent = brand;
+      document.getElementById('footer-brand').textContent = brand;
+      document.getElementById('footer-brand2').textContent = brand;
+      document.getElementById('hero-slogan').innerHTML = slogan.replace(/\n/g,'<br>');
+      document.getElementById('about-text').textContent = about;
+      document.getElementById('phone-display').textContent = phone;
+      document.getElementById('footer-phone').textContent = phone;
+      document.getElementById('insta-display').textContent = insta;
+      document.getElementById('address-display').textContent = addr;
+      document.getElementById('footer-address').textContent = addr;
+
+      const waNum = wa.replace(/[^0-9]/g,'');
+      document.getElementById('whatsapp-link').href = 'https://wa.me/'+waNum;
+      document.getElementById('navbar-whatsapp').href = 'https://wa.me/'+waNum;
+
+      const instaClean = insta.replace('@','');
+      document.getElementById('instagram-link').href = 'https://instagram.com/'+instaClean;
+
+      // Apply background color - full page
+      document.documentElement.style.background = bg;
+      document.body.style.background = bg;
+      document.getElementById('app').style.background = bg;
+      document.getElementById('main-content').style.background = bg;
+      
+      // Apply primary action color everywhere
+      document.getElementById('nav-brand').style.color = primary;
+      document.querySelectorAll('.btn-primary').forEach(el => {
+        el.style.background = primary;
+        el.style.color = '#000';
+      });
+      document.querySelectorAll('.nav-link').forEach(el => {
+        el.style.color = '#a0a0a0';
+      });
+      document.querySelectorAll('.nav-link.active').forEach(el => {
+        el.style.color = primary;
+      });
+      document.querySelectorAll('.nav-link::after').forEach(el => {
+        el.style.background = primary;
+      });
+      if (document.getElementById('cart-count')) {
+        document.getElementById('cart-count').style.background = primary;
+      }
+      
+      // Apply accent color to campaign banner
+      document.querySelectorAll('.campaign-banner').forEach(el => {
+        el.style.background = `linear-gradient(135deg, ${primary}, ${primary}dd, ${primary}99)`;
+      });
+
+      // Apply font to all text
+      const displayStack = `${font}, 'Cormorant Garamond', serif`;
+      const bodyStack = `${font}, 'Jost', sans-serif`;
+      document.querySelectorAll('.font-display').forEach(el => el.style.fontFamily = displayStack);
+      document.body.style.fontFamily = bodyStack;
+      
+      // Apply font size scale
+      const baseSize = fontSize;
+      document.body.style.fontSize = baseSize + 'px';
+      document.querySelectorAll('h1').forEach(el => el.style.fontSize = (baseSize * 2) + 'px');
+      document.querySelectorAll('h2').forEach(el => el.style.fontSize = (baseSize * 1.5) + 'px');
+      document.querySelectorAll('h3').forEach(el => el.style.fontSize = (baseSize * 1.2) + 'px');
+      document.querySelectorAll('p').forEach(el => el.style.fontSize = baseSize + 'px');
+      
+      // Rerender current page to apply new colors/fonts
+      const currentPage = Array.from(document.querySelectorAll('[id^="page-"]')).find(el => el.style.display !== 'none');
+      if (currentPage && currentPage.id === 'page-shop') {
+        filterProducts(currentFilter);
+      }
+    },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({background_color:v}); }},
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({surface_color:v}); }},
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({text_color:v}); }},
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({primary_action_color:v}); }},
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({secondary_action_color:v}); }}
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({font_family:v}); }},
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({font_size:v}); }}
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['brand_name', config.brand_name || defaultConfig.brand_name],
+      ['slogan', config.slogan || defaultConfig.slogan],
+      ['about_text', config.about_text || defaultConfig.about_text],
+      ['whatsapp_number', config.whatsapp_number || defaultConfig.whatsapp_number],
+      ['instagram_handle', config.instagram_handle || defaultConfig.instagram_handle],
+      ['phone_number', config.phone_number || defaultConfig.phone_number],
+      ['address', config.address || defaultConfig.address]
+    ])
+  });
+}
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9def6aed47080d26',t:'MTc3Mzk1NDE0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
